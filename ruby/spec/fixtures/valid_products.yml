@@ -1,0 +1,4 @@
+products:
+  - code: VOUCHER
+    name: Cabify Voucher
+    price: 5.00

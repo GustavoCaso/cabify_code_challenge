@@ -1,0 +1,4 @@
+line_items:
+  - type: VOUCHER
+    name: Cabify Voucher
+    price: 5.00
