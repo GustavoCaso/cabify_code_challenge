@@ -7,6 +7,22 @@ bundle install
 bundle exec rspec
 ```
 
+Inside `irb`
+
+```ruby
+irb -I lib
+
+> require 'checkout'
+
+checkout = Checkout.new(PricingRules)
+
+checkout.scan('VOUCHER')
+checkout.scan('TSHIRT')
+checkout.scan('MUG')
+
+checkout.total # => 32.5
+```
+
 ## How it works
 
 The exercise has been written thinking in TDD.
