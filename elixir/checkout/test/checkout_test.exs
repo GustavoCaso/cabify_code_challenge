@@ -1,7 +1,8 @@
 defmodule CheckoutTest do
   use ExUnit.Case
-  require IEx
   import ExUnit.CaptureIO
+
+  alias Checkout.PricingRules.{GetTwoPayOne, BulkBuy, Default}
 
   test "prints message when invalid product code is scanned" do
     execute_main = fn ->
@@ -17,18 +18,18 @@ defmodule CheckoutTest do
       checkout = %Checkout{}
       rules = checkout.rules
       default_rules = %{
-        "MUG" => Checkout.PricingRules.Default,
-        "TSHIRT" => Checkout.PricingRules.BulkBuy,
-        "VOUCHER" => Checkout.PricingRules.GetTwoPayOne
+        "MUG" => Default,
+        "TSHIRT" => BulkBuy,
+        "VOUCHER" => GetTwoPayOne
       }
       assert rules == default_rules
     end
 
     test "Rules can be set at initialization" do
       new_rules = %{
-        "VOUCHER" => Checkout.PricingRules.Default,
-        "TSHIRT" => Checkout.PricingRules.Default,
-        "MUG" => Checkout.PricingRules.GetTwoPayOne
+        "VOUCHER" => Default,
+        "TSHIRT" => Default,
+        "MUG" => GetTwoPayOne
       }
       checkout = %Checkout{rules: new_rules}
       assert checkout.rules == new_rules

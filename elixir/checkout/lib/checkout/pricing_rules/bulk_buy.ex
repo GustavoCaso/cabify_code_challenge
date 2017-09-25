@@ -1,5 +1,6 @@
 defmodule Checkout.PricingRules.BulkBuy do
-  require IEx
+  @behaviour Checkout.PricingRule
+
   @new_price 19.00
   @min_quantity 3
 
