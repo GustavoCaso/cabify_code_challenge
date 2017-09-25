@@ -33,7 +33,7 @@ The list of products is store in a `yml` file under `product_list/standard.yml`,
 
 A crucial part of the application is the set of rules defined for special offers. They are stored in `lib/princing_rules/` you can add more rules easily by simply adding a new module with two methods `match?(line_item)` and `call(line_item)` and loading it from the main file in `lib/pricing_rules.rb` this allow for easy extension of the rules.
 
-## Thing left
+## Things left
 
 - No persisted layer has been added, but adding would be that difficult since everything is very decoupled
 

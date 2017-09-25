@@ -47,7 +47,7 @@ new_rules = %{
 
 This allow to easily change the functionality and change how the products interact with the different rules
 
-## Thing left
+## Things left
 
 - No persisted layer has been added, but adding would be that difficult since everything is very decoupled
 
