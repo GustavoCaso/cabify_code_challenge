@@ -22,7 +22,7 @@ class Checkout
   end
 
   def total
-    @cart.group_by_line_item.map { |line_item, quantity| pricing_rules.call(quantity, line_item) }.reduce(:+)
+    @cart.line_items.map { |line_item| pricing_rules.call(line_item) }.reduce(:+)
   end
 
   private

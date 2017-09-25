@@ -6,8 +6,8 @@ module PricingRules
       false
     end
 
-    def call(quantity, line_item)
-      line_item.price * quantity
+    def call(line_item)
+      line_item.product.price * line_item.quantity
     end
   end
 end

@@ -1,3 +1,5 @@
+require_relative 'line_item'
+
 class Cart
   attr_reader :line_items
 
@@ -6,20 +8,17 @@ class Cart
   end
 
   def add(product)
-    line_items << product
-  end
-
-  def group_by_line_item
-    line_items.each_with_object({}) do |line_item, total|
-      total[line_item] ||= 0
-      total[line_item] = line_item_count(line_item)
+    if line_item = find_line_item(product)
+      line_item.increase
+    else
+      line_items << LineItem.new(product)
     end
   end
 
   private
   attr_writer :line_items
 
-  def line_item_count(line_item)
-    line_items.select{ |item| item.code == line_item.code }.count
+  def find_line_item(product)
+    line_items.find { |item| item.product.code == product.code }
   end
 end

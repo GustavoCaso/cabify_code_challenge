@@ -7,11 +7,13 @@ module PricingRules
     module_function
 
     def match?(line_item)
-      line_item.code == CODE
+      line_item.product.code == CODE
     end
 
-    def call(quantity, line_item)
-      quantity >=  MIN_QUANTITY ? quantity * NEW_PRICE : line_item.price * quantity
+    def call(line_item)
+      quantity = line_item.quantity
+
+      quantity >=  MIN_QUANTITY ? quantity * NEW_PRICE : line_item.product.price * quantity
     end
   end
 end

@@ -2,7 +2,7 @@ require_relative '../lib/cart'
 require_relative '../lib/product'
 
 RSpec.describe Cart do
-  include_context 'line_items'
+  include_context 'products_and_line_items'
   subject { described_class.new }
 
   context '#line_items' do
@@ -13,28 +13,24 @@ RSpec.describe Cart do
 
   context '#add' do
     it 'adds a new line item' do
-      subject.add(voucher_line_item)
-      expect(subject.line_items).to include(voucher_line_item)
-    end
-  end
-
-  context '#group_by_line_item' do
-    before do
-      subject.add(voucher_line_item)
-      subject.add(voucher_line_item)
-      subject.add(voucher_line_item)
-      subject.add(mug_line_item)
+      subject.add(voucher_product)
+      expect(subject.line_items.map(&:product)).to include(voucher_line_item.product)
     end
 
-    let(:expect_result) do
-      {
-        voucher_line_item => 3,
-        mug_line_item => 1
-      }
-    end
+    context 'Increase Line Item quantity' do
+      before do
+        subject.add(voucher_product)
+        subject.add(voucher_product)
+        subject.add(voucher_product)
+        subject.add(mug_product)
+      end
 
-    it 'returns line_items and the total quantity of them' do
-      expect(subject.group_by_line_item).to eq expect_result
+      it 'increases the line_items correctly' do
+        voucher = subject.line_items.find{ |item| item.product.code == 'VOUCHER' }
+        mug = subject.line_items.find{ |item| item.product.code == 'MUG' }
+        expect(voucher.quantity).to eq 3
+        expect(mug.quantity).to eq 1
+      end
     end
   end
 end
